@@ -29,17 +29,12 @@ var questions = [
   },
   {
     question: "What is Sarah's favorite book?",
-    answers: [
-      "The Great Gatsby",
-      "Great Expectations",
-      "Sense & Sensibility",
-      "The Two Towers",
-    ],
+    answers: ["The Great Gatsby", "Great Expectations", "Sense & Sensibility", "The Two Towers"],
     correctAnswer: "The Two Towers",
   },
   {
     question: "What is Sarah's favorite anime?",
-    answers: ["Attack on Titan", "Demon Slayer", "Death Note", "Tokyo Ghoul"],
+    answers: ["Attack on Titan", "Demon Slayer", "My Hero Academia", "Tokyo Ghoul"],
     correctAnswer: "Attack on Titan",
   },
   {
@@ -55,8 +50,11 @@ var questions = [
 ];
 
 var questionIndex = 0;
+var numCorrect = 0;
 var time = 100;
-var $time = document.querySelector("#timer");
+var $timer = document.querySelector("#timer");
+var $startBtn = document.querySelector("#start-game");
+var $questionContainer = document.querySelector("#question-container");
 
 $timer.textContent = time;
 var timer = setInterval(function () {
@@ -109,7 +107,6 @@ function clickExample(event) {
   console.log(event.target.id);
 }
 
-beginQuiz.addEventListener("click", clickExample);
 
 //   var q1 = document.querySelector(".q1");
 //   var example = document.querySelector("#a1");
@@ -177,4 +174,3 @@ beginQuiz.addEventListener("click", clickExample);
 //       );
 //     }
 //   }
-//   showQueste
