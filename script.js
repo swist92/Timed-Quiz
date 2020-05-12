@@ -11,51 +11,87 @@
 
 
 // Defining ---|--- grabbing
-var potato = document.querySelector("#startQuiz");
+var beginQuiz = document.querySelector("#startQuiz");
 
-potato.addEventListener("click", startQuiz);
+beginQuiz.addEventListener("click", startQuiz);
 
 function startQuiz() {
     // Timer jumps from 0 to 75 seconds
     // & Show the first question (aka call showQuestions)
-    showQuestions();
+    renderQuestion();
 }
 
-function showQuestions() {
-    // Grab the question holder and answer holders
-    var question = document.querySelector(".question");
-    var answer1 = document.querySelector("#sarah");
-    var answer2 = document.querySelector("#hannah");
-    var answer3 = document.querySelector("#kate");
-    var answer4 = document.querySelector("#danny");
+var questions = [{
+  question: "What is Sarah's favorite color",
+  answers: ["Orange", "Green", "Purple", "Yellow"],
+  correctAnswer: "Purple",
+},
+{
+  question: "What is Sarah's favorite book?",
+  answers: ["The Great Gatsby", "Great Expectations", "Sense & Sensibility", "The Two Towers"],
+  correctAnswer: "The Two Towers",
 
-    // Display the question
-    question.textContent = "Question 1: What is my name?"
+},
+{
+  question: "What is Sarah's favorite anime?",
+  answers: ["Attack on Titan", "Demon Slayer", "Death Note", "Tokyo Ghoul"],
+  correctAnswer: "Attack on Titan",
 
-    // Display answers
-    answer1.textContent = question[2].answer[2];
-    answer2.textContent = "Hannah";
-    answer3.textContent = "Kate";
-    answer4.textContent = "Danny";
+},
+{
+  question: "What is Sarah's favorite country to visit?",
+  answers: ["UK", "South Korea", "Morocco", "Japan"],
+  correctAnswer: "South Korea",
 
-    // Add event listeners to the buttons
-    answer1.addEventListener("click", evaluateAnswer);
-    answer2.addEventListener("click", evaluateAnswer);
-    answer3.addEventListener("click", evaluateAnswer);
-    answer4.addEventListener("click", evaluateAnswer);
-}
+},
+{
+  question: "What is Sarah's favorite flavor of ice cream?",
+  answers: ["Chocolate", "Peanut Butter", "Rocky Road", "Coffee"],
+  correctAnswer: "Rocky Road",
+
+},
+];
+
+var questionIndex = 0;
+var time = 100;
+var $time = document.querySelector("#timer");
+
+$timer.textContent = time;
+var timer = setInterval(function () {
+  time--;
+}, 1000);
+
+function renderQuestion(){
+  var question = questions[questionIndex];
+  var $question = document.querySelector("#question");
+  var $answers = document.querySelector("#answers");
+  $question.textContent = question.question;
+
+  for(var i = 0; i < question.answers.length; i++){
+    var $btn = document.createElement("button");
+    $btn.textContent = question.answers[i];
+    $btn.setAttribute("class", "btn btn-primary ml-3");
+    $answers.append($btn);
+  }
+};
+
+document
+  .querySelector("#answer")
+  .addEventListener("click", function(e) {
+      if(!e.target.matches("button")) return;
+      questionIndex++;
+      renderQuestion();
+  })
+ 
 
 function evaluateAnswer() {
-    // If they are right, ntohign happens
+    // If they are right, nothing happens
     // If they are wrong, lose 10 seconds
     // if event.target.id does not match("sarah"), then minus 10 seconds, and tell them wrong!
 
     // showquestion 2
-    showQuestions();
+    renderQuestion();
 }
-
-
-
 
   function countdown() {
     var timeLeft = 90;
@@ -69,6 +105,19 @@ function evaluateAnswer() {
       }
     }, 1000);
   }
+  function clickExample(event) {
+    console.log(event);
+    console.log(event.target.id);
+
+}
+
+beginQuiz.addEventListener("click", clickExample);
+
+
+
+
+
+
 //   var q1 = document.querySelector(".q1");
 //   var example = document.querySelector("#a1");
 //   document.getElementById("a1");
@@ -136,11 +185,3 @@ function evaluateAnswer() {
 //     }
 //   }
 //   showQuestions(questions);
-
-function clickExample(event) {
-    console.log(event);
-    console.log(event.target.id);
-
-}
-
-potato.addEventListener("click", clickExample);
