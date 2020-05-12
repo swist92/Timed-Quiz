@@ -1,10 +1,11 @@
 .timer {
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 20px;
+    right: 20px;
 }
+
 .highscore {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 20px;
+    left: 20px;
 }

@@ -9,18 +9,19 @@
 // Then show highscores
 // Aside: if time reaches 0, show out of time message
 
-// Defining ---|--- grabbing
+// Defining ---|--- grabbing from DOM
 var beginQuiz = document.querySelector("#startQuiz");
+var $timer = document.querySelector("#timer");
+var $startBtn = document.querySelector("#start-game");
+var $questionContainer = document.querySelector("#question-container");
 
-beginQuiz.addEventListener("click", startQuiz);
+// Defining variables
+var questionIndex = 0;
+var numCorrect = 0;
+var timeLeft = 75;
+var timeInterval;
 
-function startQuiz() {
-  beginQuiz.style.display = "none"
-  // Timer jumps from 0 to 75 seconds
-  // & Show the first question (aka call showQuestions)
-  renderQuestion();
-}
-
+// Make a question array
 var questions = [
   {
     question: "What is Sarah's favorite color",
@@ -49,19 +50,31 @@ var questions = [
   },
 ];
 
-var questionIndex = 0;
-var numCorrect = 0;
-var time = 100;
-var $timer = document.querySelector("#timer");
-var $startBtn = document.querySelector("#start-game");
-var $questionContainer = document.querySelector("#question-container");
+$timer.textContent = 0;
 
-$timer.textContent = time;
-var timer = setInterval(function () {
-  time--;
-}, 1000);
+function startQuiz() {
+  beginQuiz.style.display = "none";
+  // Start the clock
+  timer();
+  // & Show the first question (aka call showQuestions)
+  renderQuestion();
+}
+
+function timer() {
+  $timer.textContent = timeLeft + " seconds remaining";
+  timeLeft--;
+  timeInterval = setInterval(function() {
+    $timer.textContent = timeLeft + " seconds remaining";
+    timeLeft--;
+    if (timeLeft === 0) {
+      timerEl.textContent = "";
+      clearInterval(timeInterval);
+    }
+  }, 1000);
+}
 
 function renderQuestion() {
+  // Empty your answers div
   var question = questions[questionIndex];
   var $question = document.querySelector("#question");
   var $answers = document.querySelector("#answers");
@@ -71,106 +84,26 @@ function renderQuestion() {
     var $btn = document.createElement("button");
     $btn.textContent = question.answers[i];
     $btn.setAttribute("class", "btn btn-primary ml-3");
+    $btn.setAttribute("id", "answer" + (i + 1));
+    // Give each $btn a value that is same as the textContent
     $answers.append($btn);
   }
+
+  document.querySelector("#answer1").addEventListener("click", evaluateAnswer);
+  document.querySelector("#answer2").addEventListener("click", evaluateAnswer);
+  document.querySelector("#answer3").addEventListener("click", evaluateAnswer);
+  document.querySelector("#answer4").addEventListener("click", evaluateAnswer);
 }
 
-document.querySelector("#answer").addEventListener("click", function (e) {
-  if (!e.target.matches("button")) return;
-  questionIndex++;
-  renderQuestion();
-});
-
-function evaluateAnswer() {
+// This is the function that runs when you click on an answer button
+function evaluateAnswer(e) {
   // If they are right, nothing happens
-  // If they are wrong, lose 10 seconds
-  // if event.target.id does not match("sarah"), then minus 10 seconds, and tell them wrong!
+  // if event.target.value does not match("Purple"), then minus 10 seconds, and tell them wrong!
 
+  questionIndex++;
+    
   // showquestion 2
   renderQuestion();
 }
 
-function countdown() {
-  var timeLeft = 90;
-  var timeInterval = setInterval(function () {
-    timerEl.textContent = timeLeft + " seconds remaining";
-    timeLeft--;
-    if (timeLeft === 0) {
-      timerEl.textContent = "";
-      speedRead();
-      clearInterval(timeInterval);
-    }
-  }, 1000);
-}
-function clickExample(event) {
-  console.log(event);
-  console.log(event.target.id);
-}
-
-
-//   var q1 = document.querySelector(".q1");
-//   var example = document.querySelector("#a1");
-//   document.getElementById("a1");
-//   q1.textContent = "Question#2";
-//   a1.textContent = "phoebe";
-//   var questions = [
-//     {
-//       question1: "who let the dogs out?",
-//       answers: {
-//         a: "a",
-//         b: "b",
-//         c: "c",
-//         d: "d",
-//       },
-//       correctAnswer: "c",
-//     },
-//     {
-//       question2: "q2",
-//       answers: {
-//         a: "a",
-//         b: "b",
-//         c: "c",
-//         d: "d",
-//       },
-//       correctAnswer: "d",
-//     },
-//     {
-//       question3: "q3",
-//       answers: {
-//         a: "a",
-//         b: "b",
-//         c: "c",
-//         d: "d",
-//       },
-//       correctAnswer: "b",
-//     },
-//   ];
-//   function showQuestions(questions, quizContainer) {
-//     var output = [];
-//     var answers;
-//     for (var i = 0; i < questions.length; i++) {
-//       answers = [];
-//       for (letter in questions[i].answers) {
-//         answers.push(
-//           "<label>" +
-//             '<input type="radio" name="question' +
-//             i +
-//             '" value="' +
-//             letter +
-//             '">' +
-//             letter +
-//             ": " +
-//             questions[i].answers[letter] +
-//             "</label>"
-//         );
-//       }
-//       output.push(
-//         '<div class="question">' +
-//           questions[i].question +
-//           "</div>" +
-//           '<div class="answers">' +
-//           answers.join("") +
-//           "</div>"
-//       );
-//     }
-//   }
+beginQuiz.addEventListener("click", startQuiz);
