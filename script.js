@@ -15,6 +15,7 @@ var beginQuiz = document.querySelector("#startQuiz");
 beginQuiz.addEventListener("click", startQuiz);
 
 function startQuiz() {
+  beginQuiz.style.display = "none"
   // Timer jumps from 0 to 75 seconds
   // & Show the first question (aka call showQuestions)
   renderQuestion();
@@ -176,4 +177,4 @@ beginQuiz.addEventListener("click", clickExample);
 //       );
 //     }
 //   }
-//   showQuestions(questions);
+//   showQueste
