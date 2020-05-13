@@ -9,9 +9,9 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <h1> Welcome</h1>
-    <h2>Sarah's Favorite Things</h2>
-    <button id="startQuiz">Start Quiz</button>
+    <h1 class="text-center"> Welcome</h1>
+    <h2 class="text-center">Sarah's Favorite Things</h2>
+    <button type="button" class="btn btn-info text-center" id="startQuiz">Start Quiz</button>
 
     <div class="text-center" id= "question-container">
         <h3 id="question"></h3>
@@ -19,20 +19,22 @@
     </div>
     <div class="timer" id="timer"></div>
 
+    <div class="forum" id="endscreen" hidden="true">
+              <h2 class="text-center">Done!</h2>
+              <p class="text-center">Your score is<span id="finalscore"></span></p>
+              <p id="endBtn">
+              <form id="intFrm" action="/action_page.php">
+              Initials: <input type="text" name="fname"><br><br>
+    <input type="button" class="btn btn-info text-center" id="triggerHighScorePage" onclick="finishGame()" value="Submit">
+        
+    </p>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src= "./script.js"></script>
 </body>
 </html>
-
-    <!-- <div class="question">Question Holder</div>
-    <h3 ="answers" id="sarah">#answer1</button>
-    <button class="answers" id="hannah">#answer2</button>
-    <button class="answers" id="kate">Answer 3</button>
-    <button class="answers" id="danny">Answer 4</button>
-    
-</div> -->
 
 <!-- GIVEN I am taking a code quiz
 WHEN I click the start button

@@ -30,8 +30,8 @@ var questions = [
   },
   {
     question: "What is Sarah's favorite book?",
-    answers: ["The Great Gatsby", "Great Expectations", "Sense & Sensibility", "The Two Towers"],
-    correctAnswer: "The Two Towers",
+    answers: ["The Great Gatsby", "The Two Towers", "Sense & Sensibility", "Siddhartha"],
+    correctAnswer: "Siddhartha",
   },
   {
     question: "What is Sarah's favorite anime?",
@@ -74,7 +74,6 @@ function timer() {
 }
 
 function renderQuestion() {
-  // Empty your answers div
   var question = questions[questionIndex];
   var $question = document.querySelector("#question");
   var $answers = document.querySelector("#answers");
@@ -99,7 +98,7 @@ function renderQuestion() {
 // This is the function that runs when you click on an answer button
 function evaluateAnswer(e) {
   // If they are right, nothing happens
-  // if event.target.value does not match("Purple"), then minus 10 seconds, and tell them wrong!
+  // if event.target.value does not match("Purple"), minus 10 seconds, and say wrong
 
   questionIndex++;
     
@@ -107,4 +106,53 @@ function evaluateAnswer(e) {
   renderQuestion();
 }
 
+document.addEventListener("click", function (event) {
+      var userAnswer = event.target.textContent;
+      if (!event.target.matches("#correctAnswer")) return
+      if (userAnswer === questions[questionIndex].correctAnswer) {
+          console.log("Correct!");
+      } else {
+          console.log("Wrong!");
+          //timer - placement
+       }
+      questionIndex++;
+      if (questionIndex === questions.length) {
+          finishGame();
+      } else {
+        renderQuestion();
+      }
+  });
+
 beginQuiz.addEventListener("click", startQuiz);
+
+function finishgame() {
+      document.getElementById("intFrm").submit();
+  }
+  const userOrder = {};
+  
+  function getValues(e) {
+      // turn form elements object into an array
+      const elements = Array.prototype.slice.call(event.target.elements);
+  
+      // go over the array storing input name & value pairs
+      elements.forEach((el) => {
+          if (el.type !== "submit") {
+              userOrder[el.name] = el.value;
+          }
+      });
+      // finally save to localStorage
+      localStorage.setItem('userOrder', JSON.stringify(userOrder));
+  }
+  
+  document.getElementById("myform").addEventListener("submit", getValues);
+  var highscores = localStorage.getItem("highScores");
+  if (highscores) {
+      highscores = JSON.parse(highscores);
+  } else {
+      highscores = [];
+  }
+  highscores.push({
+      initials: "SW",
+      score: "3/5"
+  });
+  localStorage.setItem("highScores", JSON.stringify(highscores));
