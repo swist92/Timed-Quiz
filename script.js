@@ -78,6 +78,7 @@ function renderQuestion() {
   var question = questions[questionIndex];
   var $question = document.querySelector("#question");
   var $answers = document.querySelector("#answers");
+  $answers.innerHTML = "";
   $question.textContent = question.question;
 
   for (var i = 0; i < question.answers.length; i++) {
